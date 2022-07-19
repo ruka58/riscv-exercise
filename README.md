@@ -28,13 +28,13 @@ We will use a (slightly modified) exercise from https://github.com/CTSRD-CHERI/c
  * Compile `buffer-overflow.c` to a RISC-V binary `buffer-overflow-hybrid` in hybrid capability mode (`riscv64-hybrid`). You can use the `ccc` script from `task/tools` (see the exercise docs for details) for that. What is the full commandline for compilation? 
  
  ```
- INSERT SOLUTION HERE
+/home/jiang/cheri/output/sdk/bin/clang -g -O2 -target riscv64-unknown-freebsd --sysroot=/home/jiang/cheri/output/rootfs-riscv64-purecap -fuse-ld=lld -mno-relax -march=rv64gcxcheri -mabi=lp64d -Wall -Wcheri -G0 /home/jiang/cheri/exercise/task/buffer-overflow.c -o /home/jiang/cheri/exercise/task/buffer-overflow-hybrid
  ```
  
  * There is a security flaw in `buffer-overflow.c`. Briefly explain what the flaw is: 
  
  ```
- INSERT SOLUTION HERE
+ Use of strcpy() can induce overflow risk, where malicous strings can be copied into the buffer 
  ```
  
  * Start CHERI-RISC-V in QEMU, copy `buffer-overflow-hybrid` to the QEMU guest, and run it with a commandline argument that triggers the mentioned security flaw to overwrite the variable `c` with an attacker-controlled value. Give all the commands you have to run (assuming CHERI is in `~/cheri` and cheribuild in `~/cheribuild`):
